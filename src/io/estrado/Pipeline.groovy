@@ -88,7 +88,7 @@ def gitEnvVars() {
     }
    
     println "env.GIT_REMOTE_URL ==> ${env.GIT_REMOTE_URL}"
-    println "env.GIT_BRANCH ==> ${env.GIT_BRANCH}"
+    println "env.GIT_BRANCH ==> ${env.BRANCH_NAME}"
 }
 
 
