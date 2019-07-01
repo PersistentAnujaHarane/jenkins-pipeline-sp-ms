@@ -8,6 +8,13 @@ def kubectlTest() {
 
 }
 
+def kubectlCreateNamespace(String namespace) {
+    // Test that kubectl can correctly communication with the Kubernetes API
+    println "creating namespace"
+    sh "kubectl create namespace ${namespace}"
+
+}
+
 def helmLint(String chart_dir) {
     // lint helm chart
     println "running helm lint ${chart_dir}"
