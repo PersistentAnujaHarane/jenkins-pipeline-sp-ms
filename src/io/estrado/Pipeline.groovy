@@ -45,7 +45,7 @@ def helmDeploy(Map args) {
         println "Running deployment"
 
         // reimplement --wait once it works reliable
-       sh "helm install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
+       sh "helm install ${args.name} sp-user-ms --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
        // sh "helm install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
         // sleeping until --wait works reliably
         sleep(20)
