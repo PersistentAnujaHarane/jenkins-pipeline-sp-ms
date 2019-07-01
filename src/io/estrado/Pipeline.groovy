@@ -40,19 +40,20 @@ def helmDeploy(Map args) {
     if (args.dry_run) {
         println "Running dry-run deployment"
 
-        sh "helm upgrade --dry-run --install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
+        sh "helm upgrade --dry-run --install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory},ingress.hostname=${args.hostname} --namespace=${namespace}"
     } else {
         println "Running deployment"
 
         // reimplement --wait once it works reliable
-       //sh "helm install ${args.name} sp-user-ms --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
-       sh "helm install --name=${args.name} sp-user-ms --set image.tag=${args.imageTag} --set namespace=${args.namespace}"
-        // sh "helm install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory} --namespace=${namespace}"
+        sh "helm upgrade --install ${args.name} ${args.chart_dir} --set imageTag=${args.version_tag},replicas=${args.replicas},cpu=${args.cpu},memory=${args.memory},ingress.hostname=${args.hostname} --namespace=${namespace}"
+
         // sleeping until --wait works reliably
         sleep(20)
 
         echo "Application ${args.name} successfully deployed. Use helm status ${args.name} to check"
     }
+}
+
 }
 
 
