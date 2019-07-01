@@ -1,5 +1,5 @@
 #!/usr/bin/groovy
-package io.stockpile;
+package io.estrado;
 
 def kubectlTest() {
     // Test that kubectl can correctly communication with the Kubernetes API
