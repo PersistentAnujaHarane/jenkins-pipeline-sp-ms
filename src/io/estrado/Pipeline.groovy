@@ -33,7 +33,7 @@ def helmConfig() {
 
 def helmDeploy(Map args) {
     //configure helm client and confirm tiller process is installed
-    helmConfig()
+    //helmConfig()
 
     def String namespace
 
@@ -100,23 +100,6 @@ def gitEnvVars() {
     println "env.GIT_BRANCH ==> ${env.BRANCH_NAME}"
 }
 
-
-def containerBuildPub(Map args) {
-
-    println "Running Docker build/publish: ${args.host}/${args.acct}/${args.repo}:${args.tags}"
-
-    docker.withRegistry("${args.host}", "${args.auth_id}") {
-
-        // def img = docker.build("${args.acct}/${args.repo}", args.dockerfile)
-        def img = docker.image("${args.acct}/${args.repo}")
-        sh "docker build --build-arg VCS_REF=${env.GIT_SHA} --build-arg BUILD_DATE=`date -u +'%Y-%m-%dT%H:%M:%SZ'` -t ${args.acct}/${args.repo} ${args.dockerfile}"
-        for (int i = 0; i < args.tags.size(); i++) {
-            img.push(args.tags.get(i))
-        }
-
-        return img.id
-    }
-}
 
 def getContainerTags(config, Map tags = [:]) {
 
